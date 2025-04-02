@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Therapy History | HealingHue AI</title>
+  <link rel="icon" type="image/png" href="/static/favicon.png"/>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body {
+      background: linear-gradient(135deg, #F5F3FF, #FFF7F1);
+      font-family: 'Poppins', sans-serif;
+      color: #3C3C3C;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    .gallery-container {
+      padding: 60px 20px;
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .card {
+      border-radius: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      background: #ffffff;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-img-top {
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      object-fit: cover;
+      height: 200px;
+    }
+
+    .ai-img {
+      object-fit: cover;
+      height: 200px;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      color: #6B5CD7;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      flex-shrink: 0;
+      background: #FAFAFA;
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar px-4 pt-3 d-flex justify-content-between align-items-center">
+    <a href="/" class="d-flex align-items-center text-decoration-none">
+      <div class="d-inline-flex align-items-center justify-content-center bg-white border rounded-circle me-3" style="width: 56px; height: 56px;">
+        <i class="bi bi-palette2 text-dark" style="font-size: 1.6rem;"></i>
+      </div>
+      <span class="fw-bold fs-4 text-dark">HealingHue AI</span>
+    </a>
+    <div>
+      <a href="/chat" class="btn btn-outline-dark btn-md me-2">Back to Chat</a>
+      <a href="/logout" class="btn btn-dark btn-md">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container gallery-container">
+    <div class="gallery-header">
+      <h2 class="fw-bold" style="color:#7C6AED;">Therapy History & Artwork Gallery</h2>
+      <p class="text-muted">Review your past conversations and the visual inspirations you've created.</p>
+    </div>
+
+    {% if history %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for entry in history %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="{{ entry.user_image }}" class="card-img-top" alt="User's Drawing">
+          <div class="card-body">
+            <h5 class="card-title">AI Reflection</h5>
+            <p class="card-text">{{ entry.ai_response }}</p>
+            <h5 class="card-title mt-3">AI-Inspired Image</h5>
+            <img src="{{ entry.ai_image }}" class="img-fluid ai-img" alt="AI Generated">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+      <i class="bi bi-emoji-frown" style="font-size: 3rem; color: #aaa;"></i>
+      <h5 class="mt-3">No history found</h5>
+      <p class="text-muted">You haven't uploaded any artwork yet. Start a session in the chat to begin your journey!</p>
+      <a href="/chat" class="btn btn-outline-primary mt-3">Go to Chat</a>
+    </div>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 HealingHue AI | Healing through color and conversation 💜
+  </footer>
+
+</body>
+</html>
